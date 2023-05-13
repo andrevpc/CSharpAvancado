@@ -1,0 +1,103 @@
+using System;
+using System.Linq;
+using System.Threading;
+using System.Diagnostics;
+using System.Threading.Tasks;
+using System.Collections.Generic;
+
+Random randNum = new();
+Army atk = new();
+Army def = new();
+int qtSimu = 10;
+
+Stopwatch sw = new();
+
+sw.Start();
+Parallel.For (0, qtSimu, k =>
+{
+    Army.index = 0;
+    atk.soldiers = 10;
+    def.soldiers = 10;
+    byte[] randomBytes = new byte[atk.soldiers*def.soldiers*100];
+    lock (randNum)
+    {
+        randNum.NextBytes(randomBytes);
+    }
+    while (atk.soldiers > 1 && def.soldiers > 0)
+    {
+        atk.rollDices(randomBytes);
+        def.rollDices(randomBytes);
+        int defVictories = atk.attack(def);
+        lock(atk)
+        {
+            lock(def)
+            {
+                atk.soldiers -= defVictories;
+                def.soldiers -= (3 - defVictories);
+            }
+        }
+    }
+    lock(atk)
+    {
+        lock(def)
+        {
+            if (atk.soldiers>def.soldiers)
+                atk.victories++;
+            else
+                def.victories++;
+        }
+    }
+});
+sw.Stop();
+
+Console.Write($"Atacantes: {(float)atk.victories/qtSimu*100}% de vitorias\nDefensores: {(float)def.victories/qtSimu*100}% de vitorias\n");
+Console.Write(sw.ElapsedMilliseconds + " ms");
+
+public class Army
+{
+    public int soldiers { get; set; }
+    public int victories { get; set; } = 0;
+    public List<int> dices = new List<int>();
+    public static int index = 0;
+    public List<int> rollDices(byte[] randBytes)
+    {
+        dices.Clear();
+        for (int i = 0; i < 3; i++)
+        {
+            if (index >= randBytes.Length)
+            {
+                index = 0;
+            }
+            dices.Add(randBytes[index++]/44+1);
+        }
+        dices = dices.OrderByDescending(s => s)
+                     .ToList();
+        return dices;
+    }
+
+    public int attack(Army def)
+    {
+        int defVictories = 0;
+        if (this.soldiers >= 3 && def.soldiers >= 3)
+        {
+            for(int i = 0; i < 3; i++)
+            {
+                if (this.dices[i] > def.dices[i])
+                {
+                    defVictories++;
+                }
+            }
+        }
+        else
+        {
+            for (int i = 0; i < (this.soldiers > def.soldiers ? def.soldiers : this.soldiers); i++)
+            {
+                if (this.dices[i] > def.dices[i])
+                {
+                    defVictories++;
+                }
+            }
+        }
+        return defVictories;
+    }
+}
