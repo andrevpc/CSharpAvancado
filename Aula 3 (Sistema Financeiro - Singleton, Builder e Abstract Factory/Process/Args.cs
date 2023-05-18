@@ -1,3 +1,5 @@
+namespace Financeiro.Process;
+using Company;
 public class ProcessArgs
 {
     private static ProcessArgs empty = new ProcessArgs();

@@ -1,3 +1,6 @@
+namespace Financeiro.Countries;
+using Process;
+using Factory;
 public class BrazilDismissalProcess : DismissalProcess
 {
     public override string Title => "Demissão de Funcionário";
@@ -24,6 +27,7 @@ public class BrazilContractProcess : ContractProcess
     public override void Apply(ContractProcessArgs args)
     {
         args.Company.Money -= 0.5m * args.Employe.Wage;
+        Console.WriteLine($"{args.Employe.Name} foi contratado");
     }
 }
  

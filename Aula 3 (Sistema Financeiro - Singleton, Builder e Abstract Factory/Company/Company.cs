@@ -1,6 +1,9 @@
-using System.Linq;
 using System.Collections.Generic;
- 
+namespace Financeiro.Company;
+using System.Linq;
+using Process;
+using Factory;
+
 public class Company
 {
     // Estrutura Singleton
@@ -22,6 +25,7 @@ public class Company
     {
         ContractProcessArgs args = new();
         args.Employe = employe;
+        args.Company = this;
         employes.Add(employe);
         contractProcess.Apply(args);
     }

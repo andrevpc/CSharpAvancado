@@ -1,3 +1,5 @@
+namespace Financeiro.Factory;
+using Process;
 public interface IProcessFactory
 {
   WagePaymentProcess CreateWagePaymentProcess();

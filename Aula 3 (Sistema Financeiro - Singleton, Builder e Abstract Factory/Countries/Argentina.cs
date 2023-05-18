@@ -1,3 +1,6 @@
+namespace Financeiro.Countries;
+using Process;
+using Factory;
 public class ArgentinaDismissalProcess : DismissalProcess
 {
     public override string Title => "Despido de Empleados";
@@ -18,8 +21,24 @@ public class ArgentinaWagePaymentProcess : WagePaymentProcess
     }
 }
  
+public class ArgentinaContractProcess : ContractProcess
+{
+    public override string Title => "Emplear";
+ 
+    public override void Apply(ContractProcessArgs args)
+    {
+        args.Company.Money -= 0.4m * args.Employe.Wage;
+        Console.WriteLine($"{args.Employe.Name} fue empleado");
+    }
+}
+
 public class ArgentinaProcessFactory : IProcessFactory
 {
+    public ContractProcess CreateContractProcess()
+    {
+        throw new NotImplementedException();
+    }
+
     public DismissalProcess CreateDismissalProcess()
         => new ArgentinaDismissalProcess();
  
