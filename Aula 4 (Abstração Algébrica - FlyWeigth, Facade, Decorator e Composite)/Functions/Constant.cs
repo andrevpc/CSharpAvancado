@@ -9,7 +9,7 @@ public class Constant : Function
 
   protected override double get(double x) => this.valor;
   
-  public override Function Derive()
+  public override Constant Derive()
     => new Constant(0);
   
   public override string ToString() => this.valor.ToString();

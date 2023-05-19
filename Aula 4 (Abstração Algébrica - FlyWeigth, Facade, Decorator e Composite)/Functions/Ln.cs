@@ -10,7 +10,7 @@ public class Ln : Function
     => Math.Log(inner[x]);
   
   public override Function Derive()
-    => inner.Derive() * Functions.Constant[1] / inner;
+    => inner.Derive() / inner;
   
   public override string ToString() 
     => $"ln({inner})";

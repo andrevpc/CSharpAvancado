@@ -11,7 +11,7 @@ public class Sin : Function
     => Math.Sin(inner[x]);
   
   public override Function Derive()
-    => inner.Derive() * (-cos(inner));
+    => inner.Derive() * cos(inner);
   
   public override string ToString() 
     => $"sin({inner})";
