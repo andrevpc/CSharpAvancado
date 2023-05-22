@@ -7,9 +7,9 @@ class Program {
   {
     // var f = sin(x) * sin(x) + cos(x) * cos(x) + e;
     
-    var f = new Constant(2)*x + new Constant(1);
-    Console.WriteLine("f(x) = " + f + "\nf(10) = " + f[10]);
+    var f = x ^ new Constant(3);
+    Console.WriteLine("f(x) = " + f + "\nf(10) = " + f[2]);
     f = f.Derive();
-    Console.WriteLine("f(x) = " + f + "\nf(10) = " + f[10]);
+    Console.WriteLine("f(x) = " + f + "\nf(10) = " + f[2]);
   }
 }

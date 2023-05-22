@@ -19,14 +19,20 @@ public class Mult : Function
   
   public override Function Derive()
   {
-    Mult result = new();
-    foreach (var f in this.funcs)
+    Sum sum = new();
+    for (int i = 0; i < this.funcs.Count(); i++)
     {
-      foreach(var a in this.funcs)
+      Mult mult = new();
+      for (int j = 0; j < this.funcs.Count(); j++)
       {
-        
+        if (i == j)
+          mult.Add(this.funcs[j].Derive());
+        else
+          mult.Add(this.funcs[j]);
       }
+      sum.Add(mult);
     }
+    return sum;
   }
   
   public override string ToString()

@@ -31,7 +31,8 @@ public static class FunctionUtil
 
   public static Function cos(Function f)
     => new Cos(f);
-
+  public static Function pow(Function f, Function g)
+    => new Pow(f, g);
   public static Function ln(Function f)
     => new Ln(f);
 }

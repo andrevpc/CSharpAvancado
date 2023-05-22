@@ -19,7 +19,20 @@ public class Div : Function
   
   public override Function Derive()
   {
-    return null; // ainda não fiz kk (ainda hua hua)
+    if (this.funcs.Count() > 2)
+        {
+            Function v = funcs[funcs.Count() - 1];
+            Div u = new Div();
+            foreach (var f in this.funcs.SkipLast(1))
+                u.Add(f);
+
+            return ((v * u.Derive()) - (v.Derive() * u)) / (v ^ 2);
+        }
+
+        Function g = funcs[0];
+        Function h = funcs[1];
+
+        return ((g.Derive() * h) - (g * h.Derive())) / (h ^ 2);
   }
   
   public override string ToString()

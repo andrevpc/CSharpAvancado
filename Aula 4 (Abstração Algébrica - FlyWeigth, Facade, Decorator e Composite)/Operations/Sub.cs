@@ -1,7 +1,7 @@
 namespace Operations;
 using Functions;
 
-public class Minus : Function
+public class Minus : Function //errado
 {
   private List<Function> funcs = new List<Function>();
   public void Add(Function func)
