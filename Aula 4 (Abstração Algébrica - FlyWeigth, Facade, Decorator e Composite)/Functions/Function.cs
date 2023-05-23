@@ -31,10 +31,11 @@ public abstract class Function
     return sum;
   }
   #endregion
+
   #region -
   public static Function operator -(Function f)
   {
-    Minus minus = new();
+    Minus minus = new(f);
     return minus;
   }
   public static Function operator -(Function f, Function g)
@@ -59,6 +60,7 @@ public abstract class Function
     return sub;
   }
   #endregion
+
   #region *
   public static Function operator *(Function f, Function g)
   {
@@ -82,6 +84,7 @@ public abstract class Function
     return mult;
   }
   #endregion
+
   #region /
   public static Function operator /(Function f, Function g)
   {
@@ -105,6 +108,7 @@ public abstract class Function
     return div;
   }
   #endregion
+
   #region ^
   public static Function operator ^(Function f, Function g)
     =>  new Pow(f, g);
@@ -112,5 +116,6 @@ public abstract class Function
     =>  new Pow(f, new Constant(g));
   public static Function operator ^(double f, Function g)
     =>  new Pow(new Constant(f), g);
-  #endregion  
+  #endregion 
+  
 }

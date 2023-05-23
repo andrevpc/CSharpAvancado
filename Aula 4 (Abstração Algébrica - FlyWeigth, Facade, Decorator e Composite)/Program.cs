@@ -1,15 +1,15 @@
 ﻿using System;
 using static FunctionUtil;
-using Functions;
 
 class Program {
   public static void Main (string[] args)
   {
-    // var f = sin(x) * sin(x) + cos(x) * cos(x) + e;
+    var f = sin(x) * sin(x) + cos(x) * cos(x);
     
-    var f = x ^ new Constant(3);
-    Console.WriteLine("f(x) = " + f + "\nf(10) = " + f[2]);
+    // var f = -log(2, x);
+
+    Console.WriteLine("f(x) = " + f + "\nf(10) = " + f[10]);
     f = f.Derive();
-    Console.WriteLine("f(x) = " + f + "\nf(10) = " + f[2]);
+    Console.WriteLine("f(x) = " + f + "\nf(10) = " + f[10]);
   }
 }
