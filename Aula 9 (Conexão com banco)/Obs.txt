@@ -1,0 +1,2 @@
+EntityTest = db First
+ORM = code First
