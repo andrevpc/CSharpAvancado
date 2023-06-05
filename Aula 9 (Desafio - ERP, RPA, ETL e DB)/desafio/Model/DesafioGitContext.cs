@@ -25,13 +25,16 @@ public partial class DesafioGitContext : DbContext
     {
         modelBuilder.Entity<Repositorio>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Reposito__3214EC2723FDB009");
+            entity.HasKey(e => e.Id).HasName("PK__Reposito__3214EC27A9FC555D");
 
             entity.Property(e => e.Id).HasColumnName("ID");
+            entity.Property(e => e.Created).HasColumnType("datetime");
             entity.Property(e => e.LastPull).HasColumnType("datetime");
             entity.Property(e => e.Nome)
                 .IsRequired()
-                .HasMaxLength(100)
+                .IsUnicode(false);
+            entity.Property(e => e.RepoPath)
+                .IsRequired()
                 .IsUnicode(false);
         });
 

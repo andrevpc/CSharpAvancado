@@ -5,7 +5,8 @@ using System.Threading.Tasks;
 using System.Management.Automation;
 
 using desafio.Model;
-using desafio.Model.DBUteis;
+
+using static desafio.DBUteis;
 
 var foldersRepositories = Directory
     .EnumerateDirectories("C:/Users/disrct/Desktop/Repositories");
@@ -41,7 +42,9 @@ foreach (var folder in foldersRepositories)
                 Console.WriteLine(line);
 
             DesafioGitContext context = new DesafioGitContext();
-            await pullRepositorio(0); //extract name
+            string repoName = folder.Replace("\\", "/");
+            string[] repoNameSplit = repoName.Split('/');
+            await pullRepositorio(repoNameSplit[repoNameSplit.Length - 1], context, folder);
         }
     }
 }

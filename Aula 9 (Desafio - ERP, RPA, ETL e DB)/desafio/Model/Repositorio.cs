@@ -9,5 +9,9 @@ public partial class Repositorio
 
     public string Nome { get; set; }
 
-    public DateTime LastPull { get; set; }
+    public string RepoPath { get; set; }
+
+    public DateTime? Created { get; set; }
+
+    public DateTime? LastPull { get; set; }
 }
