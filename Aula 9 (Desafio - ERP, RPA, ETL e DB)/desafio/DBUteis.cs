@@ -3,29 +3,39 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 
-namespace desafio;
 
-using desafio.Model;
+namespace desafio.Model.DBUteis;
 
 
-public static class DBUteis
+public class Singleton
 {
-    public static async Task pullRepositorio(string nome, DesafioGitContext context, string path)
+    private Singleton() { }
+    private Singleton(DesafioGitContext context)
+        => this.context = context;
+    private static Singleton crr = new Singleton();
+    public static Singleton Current => crr;
+    public DesafioGitContext context { get; set; }
+    public static void New()
+        => crr = new Singleton();
+    public static void New(DesafioGitContext context)
+        => crr = new Singleton(context);
+
+    public async Task pullRepositorio(string nome, string path)
     {
         var repo = context.Repositorios.FirstOrDefault(x => x.Nome == nome);
 
         if (repo is not null)
-            await updateRepositorio(repo, context);
+            await updateRepositorio(repo);
         else
-            await createRepositorio(nome, context, path);
+            await createRepositorio(nome, path);
     }
-    public static async Task updateRepositorio(Repositorio repo, DesafioGitContext context)
+    public async Task updateRepositorio(Repositorio repo)
     {
         repo.LastPull = DateTime.Now;
 
         await context.SaveChangesAsync();
     }
-    public static async Task createRepositorio(string nome, DesafioGitContext context, string path)
+    public async Task createRepositorio(string nome, string path)
     {
         Repositorio repositorio = new Repositorio();
 

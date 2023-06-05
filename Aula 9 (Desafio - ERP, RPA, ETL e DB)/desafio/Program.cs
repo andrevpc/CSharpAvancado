@@ -6,12 +6,13 @@ using System.Management.Automation;
 
 using desafio.Model;
 
-using static desafio.DBUteis;
+using desafio.Model.DBUteis;
 
 var foldersRepositories = Directory
     .EnumerateDirectories("C:/Users/disrct/Desktop/Repositories");
 
 using var ps = PowerShell.Create();
+DesafioGitContext context = new DesafioGitContext();
 
 
 foreach (var folder in foldersRepositories)
@@ -41,10 +42,12 @@ foreach (var folder in foldersRepositories)
             foreach (var line in result)
                 Console.WriteLine(line);
 
-            DesafioGitContext context = new DesafioGitContext();
+            Singleton.New(context);
+            var crr = Singleton.Current;
             string repoName = folder.Replace("\\", "/");
             string[] repoNameSplit = repoName.Split('/');
-            await pullRepositorio(repoNameSplit[repoNameSplit.Length - 1], context, folder);
+            await crr.pullRepositorio(repoNameSplit[repoNameSplit.Length - 1], folder);
+            continue;
         }
     }
 }

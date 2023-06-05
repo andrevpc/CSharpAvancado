@@ -13,8 +13,10 @@ go
 
 create table Repositorios(
 	ID int identity primary key,
-	Nome varchar(100) not null,
-	LastPull datetime not null
+	Nome varchar(MAX) not null,
+	RepoPath varchar(MAX) not null,
+	Created datetime,
+	LastPull datetime
 );
 go
 
