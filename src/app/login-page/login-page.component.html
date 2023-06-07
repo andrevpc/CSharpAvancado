@@ -1,0 +1,19 @@
+<h1>
+    Login
+</h1>
+<p>
+    <label>Email/Username</label>
+    <br>
+    <input [(ngModel)]="email">
+</p>
+<app-password [seePassword]="false" [breakLineOnInput]="true" />
+<p>
+    <button mat-raised-button color="primary">Logar</button>
+</p>
+<p>
+    Não possui conta? <a routerLink="newaccount">Crie uma agora mesmo!</a>
+</p>
+<p>
+    Esqueceu sua senha? <a href="{{'/recover/' + email}}">Recupere agora!</a>
+</p>
+<router-outlet></router-outlet>

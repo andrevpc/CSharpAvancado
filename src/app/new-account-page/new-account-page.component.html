@@ -1,0 +1,53 @@
+<h1>
+    Nova Conta
+</h1>
+
+
+
+<label>Email</label>
+<br>
+<input type="text" [formControl]="email">
+
+<div *ngIf="email.invalid" style="color: red;">
+    <div *ngIf="email.errors?.['required']">
+        Email is required.
+    </div>
+    <div *ngIf="email.errors?.['minlength']">
+        Email must be at least 4 characters long.
+    </div>
+    <div *ngIf="email.errors?.['email']">
+        Email invalido
+    </div>
+</div>
+
+<p>
+    <label>Username</label>
+    <br>
+    <input>
+</p>
+
+<app-verify-cpf />
+
+<p>
+    <label>CEP</label>
+    <br>
+    <input [(ngModel)]="cepvalue" (change)="cepAdded()">
+</p>
+
+<p>
+    <label>Rua</label>
+    <br>
+    <input [(ngModel)]="ruavalue">
+</p>
+
+<p>
+    <label>Username</label>
+    <br>
+    <input>
+</p>
+
+<app-create-password />
+
+<p>
+    <button>Criar Conta</button>
+</p>
